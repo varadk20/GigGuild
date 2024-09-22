@@ -1,0 +1,46 @@
+/* HomePage.css */
+.homepage {
+  background-color: #f4f4f5; /* Zinc color */
+  height: 100vh;
+  margin: 0;
+}
+
+.navbar {
+  background-color: #1e293b; /* Dark shade for the navbar */
+}
+
+.title {
+  flex-grow: 1;
+}
+
+.search {
+  position: relative;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.15);
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.search:hover {
+  background-color: rgba(255, 255, 255, 0.25); /* Highlight on hover */
+}
+
+.searchIcon {
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputBase {
+  color: inherit;
+  padding: 8px 8px 8px 0;
+  padding-left: 40px; /* Offset for search icon */
+  transition: width 300ms;
+  width: 150px;
+}
+
+.inputBase:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}

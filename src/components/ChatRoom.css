@@ -1,0 +1,26 @@
+/* Align messages from the current user (right) */
+.message-right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Align messages from other users (left) */
+.message-left {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+/* Styling for messages */
+.message-right .MuiListItemText-root {
+  background-color: #e3f2fd;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 60%;
+}
+
+.message-left .MuiListItemText-root {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 60%;
+}
