@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import RecruiterPage from './pages/RecruiterPage';
 import FreelancerPage from './pages/FreelancerPage';
  import RoleSelection from './components/RoleSelection';
+ import LoginSignupPage from './components/LoginSignupPage';
 // import EditProfilePage from './pages/EditProfilePage';
 
 function AppRoutes() {
@@ -12,6 +13,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/role-selection" element={<RoleSelection/>} />
+        <Route path="//loginsignup" element={<LoginSignupPage/>} />
         <Route path="/freelancer-home" element={<FreelancerPage/>} />
         <Route path="/recruiter-home" element={<RecruiterPage/>} />
         {/* <Route path="/edit-profile" element={<EditProfilePage />} /> */}

@@ -45,8 +45,12 @@ function LandingPage() {
   }, []);
 
   // Handle navigation to HomePage
-  const handleNavigateToHome = () => {
-    navigate('/role-selection'); // Redirect to HomePage
+  // const handleNavigateToHome = () => {
+  //   navigate('/role-selection'); // Redirect to HomePage
+  // };
+
+    const handleNavigateToHome = () => {
+    navigate('/loginsignup'); // Redirect to HomePage
   };
 
   return (
