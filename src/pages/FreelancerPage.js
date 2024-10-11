@@ -47,7 +47,7 @@ function FreelancerPage() {
       </AppBar>
       <Sidebar open={sidebarOpen} onClose={handleSidebarClose} />
       <div style={{ padding: '20px' }}>
-        <Typography variant="h4">Welcome to TheGigGuild!</Typography>
+        <Typography variant="h4">Welcome to TheG</Typography>
         {/* Add additional content here */}
       </div>
     </div>

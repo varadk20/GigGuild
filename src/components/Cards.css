@@ -1,36 +1,64 @@
-/* Container for the cards */
+/* General container for the cards */
 .cards-container {
-    display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Individual card styles */
+.card {
+  width: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+}
+
+/* On hover, the card elevates slightly */
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Media (image or video) within each card */
+.card-media {
+  border-radius: 8px 8px 0 0;
+  object-fit: cover;
+  width: 100%;
+  height: 180px;
+}
+
+/* Card content */
+.card-content {
+  padding: 16px;
+}
+
+/* Card title styling */
+.card h5 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Card description styling */
+.card p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .cards-container {
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    padding: 20px;
   }
-  
-  /* Cards.css */
-.card {
-  width: 250px;
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-  border: 20px solid #71717a; /* Zinc color */
-  border-radius: 30px; /* Optional: Adds rounded corners */
+
+  .card {
+    width: 90%;
+  }
 }
 
-
-  
-/* Styling for the card media (image or video) */
-.card-media {
-    object-fit: cover;
-    width: 100%;
-    height: 200px; /* Adjust this height to suit your design */
-}
-  
-/* Hover effect for cards */
-.card:hover {
-    transform: scale(1.05);
-}
   
