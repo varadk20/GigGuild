@@ -65,7 +65,7 @@ function FreelancerPage() {
           <ProfileMenu />
         </Toolbar>
       </AppBar>
-      <Sidebar open={sidebarOpen} onClose={handleSidebarClose} />
+      <Sidebar open={sidebarOpen} onClose={handleSidebarClose} /> 
       <div className="content-container">
         <Typography variant="h4">Welcome to TheGigGuild!</Typography>
         
@@ -105,6 +105,7 @@ function FreelancerPage() {
             </Card>
           ))}
         </div>
+
       </div>
     </div>
   );

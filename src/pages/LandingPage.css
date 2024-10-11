@@ -1,100 +1,168 @@
-/* Container for the landing page */
-.landing-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #e4e1e1 0%, #666565 50%, #000000 100%);
-  padding: 20px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  transition: background-color 0.3s ease-in-out; /* Smooth transition for color change */
-  scroll-behavior: smooth;
-}
-
-/* Styling for the landing page title */
-.landing-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 3rem;
-  margin-bottom: 20px;
-  z-index: 1;
-  color: transparent; /* This makes the text color transparent, only showing the border */
-  -webkit-text-stroke: 2px #3d3d3d; /* Adds a 2px border with a zinc color */
-  text-align: center;
-}
-
-/* Styling for the landing page description */
-.landing-description {
-  font-family: 'Handjet', sans-serif;
-  font-size: 1.5rem;
-  margin-bottom: 40px;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid black;
-  animation: blink-caret 0.75s step-end infinite;
-  z-index: 1;
-}
-
-/* Button styling */
-.get-started-btn {
-  font-family: 'Protest+Guerilla', sans-serif;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  background-color: #333;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  z-index: 1;
-}
-
-.get-started-btn:hover {
-  background-color: #555;
-}
-
-
-/* Container for the cards */
+/* Cards container styling */
 .cards-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Keeps cards vertically aligned */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  margin-top: 40px;
   width: 100%;
-  padding: 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Individual card styling */
 .card {
-  width: 250px;
-  margin: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-  border: 10px solid #71717a; /* Zinc color */
-  border-radius: 30px; /* Optional: Adds rounded corners */
 }
 
-/* Hover effect for cards */
+/* Hover effect for the cards */
 .card:hover {
-  transform: scale(1.05);
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
-/* Alternating card positions */
-.card:nth-child(odd) {
-  align-self: flex-start; /* Align to the left */
-  margin-left: 0; /* Ensure it stays at the extreme left */
-}
-
-.card:nth-child(even) {
-  align-self: flex-end; /* Align to the right */
-  margin-right: 0; /* Ensure it stays at the extreme right */
-}
-
-/* Styling for the card media (image or video) */
+/* Card media styling (both image and video) */
 .card-media {
   object-fit: cover;
   width: 100%;
-  height: 140px;
+  height: 180px;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Card content */
+.card-content {
+  padding: 20px;
+}
+
+/* Typography for card title */
+.card h5 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Typography for card description */
+.card p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .card-media {
+    height: 160px;
+  }
+
+  .card h5 {
+    font-size: 1.1rem;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+  }
+}
+/* General container styling for the landing page */
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  padding: 20px;
+  text-align: center;
+  color: #333;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Title styling */
+.landing-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #764ba2;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  animation: fadeInDown 1.2s ease-in-out;
+}
+
+/* Typing effect for the description */
+.landing-description {
+  font-size: 1.5rem;
+  font-weight: 400;
+  max-width: 600px;
+  margin-bottom: 40px;
+  color: #555;
+  animation: fadeIn 1.8s ease-in-out;
+}
+
+/* Button styling */
+.get-started-btn {
+  background-color: #764ba2;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 8px 15px rgba(26, 115, 232, 0.4);
+}
+
+.get-started-btn:hover {
+  background-color: #155cb0;
+  box-shadow: 0 12px 24px rgba(26, 115, 232, 0.6);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Make the layout responsive for mobile devices */
+@media (max-width: 768px) {
+  .landing-title {
+    font-size: 2.5rem;
+  }
+
+  .landing-description {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+
+  .get-started-btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
 }

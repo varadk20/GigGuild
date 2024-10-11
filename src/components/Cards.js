@@ -51,7 +51,6 @@ function Cards() {
             <CardMedia
               component="img"
               alt={card.title}
-              height="140"
               image={card.media}
               className="card-media"
             />
@@ -60,14 +59,13 @@ function Cards() {
               autoPlay
               muted
               loop
-              playsInline  // Ensures video plays without controls
+              playsInline
               alt={card.title}
-              height="140"
               className="card-media"
               src={card.media}
             />
           )}
-          <CardContent>
+          <CardContent className="card-content">
             <Typography variant="h5" component="div">
               {card.title}
             </Typography>
@@ -80,5 +78,6 @@ function Cards() {
     </div>
   );
 }
+
   
   export default Cards;
