@@ -1,47 +1,111 @@
 /* FreelancerPage.css */
 .freelancerpage {
-    background-color: #f4f4f5; /* Zinc color */
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .navbar {
-    background-color: #1e293b; /* Dark shade for the navbar */
-  }
-  
-  .title {
-    flex-grow: 1;
-  }
-  
-  .search {
-    position: relative;
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.15);
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .search:hover {
-    background-color: rgba(255, 255, 255, 0.25); /* Highlight on hover */
-  }
-  
-  .searchIcon {
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .inputBase {
-    color: inherit;
-    padding: 8px 8px 8px 0;
-    padding-left: 40px; /* Offset for search icon */
-    transition: width 300ms;
-    width: 150px;
-  }
-  
-  .inputBase:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-  }
-  
+  background-color: #f4f4f5; /* Zinc color */
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Column layout */
+}
+
+.navbar {
+  background-color: #1e293b; /* Dark shade for the navbar */
+}
+
+.title {
+  flex-grow: 1;
+}
+
+.search {
+  position: relative;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.15);
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.search:hover {
+  background-color: rgba(255, 255, 255, 0.25); /* Highlight on hover */
+}
+
+.searchIcon {
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputBase {
+  color: inherit;
+  padding: 8px 8px 8px 0;
+  padding-left: 40px; /* Offset for search icon */
+  transition: width 300ms;
+  width: 150px;
+}
+
+.inputBase:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Styles for GitHub Personal Access Token input */
+.token-input-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px; /* Space above the token input */
+}
+
+.token-input {
+  width: 300px; /* Fixed width for the input */
+  padding: 10px; /* Padding inside the input */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Rounded corners */
+  transition: border-color 0.3s; /* Smooth border color transition */
+}
+
+.token-input:focus {
+  border-color: #1e293b; /* Darker border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.fetch-button {
+  margin-left: 10px; /* Space between input and button */
+  background-color: #1e293b; /* Dark button background */
+  color: white; /* White text color */
+  padding: 10px 15px; /* Padding inside the button */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.fetch-button:hover {
+  background-color: #2a2f3a; /* Darker shade on hover */
+}
+
+.fetch-button:focus {
+  outline: none; /* Remove default outline on focus */
+}
+
+/* Styles for content container */
+.content-container {
+  flex: 1; /* Allow this container to grow and fill available space */
+  padding: 20px; /* Padding around the content */
+  display: flex;
+  flex-direction: column; /* Column layout */
+}
+
+/* Styles for projects container */
+.projects-container {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: row; /* Horizontal layout */
+  flex-wrap: wrap; /* Allow wrapping to the next row */
+  margin-top: 20px; /* Space above the projects */
+  padding: 0; /* Remove padding */
+}
+
+/* Styles for project cards */
+.project-card {
+  flex: 1 1 200px; /* Flex-grow, flex-shrink, and minimum width */
+  margin: 10px; /* Space between cards */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+}
