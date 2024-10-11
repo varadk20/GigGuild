@@ -55,46 +55,55 @@ function LoginSignupPage() {
     }
   };
   
-  
-
   return (
-    <div className="login-signup-container">
-      <div className="role-toggle">
-        <button onClick={() => handleRoleChange('Freelancer')} className={role === 'Freelancer' ? 'active' : ''}>Freelancer</button>
-        <button onClick={() => handleRoleChange('Recruiter')} className={role === 'Recruiter' ? 'active' : ''}>Recruiter</button>
+    <div className="login-signup-page">
+      {/* Left section for video */}
+      <div className="video-section">
+        <video autoPlay muted loop>
+          <source src="\Gig.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
       
-      <h2>{formType === 'login' ? 'Login' : 'Sign Up'} as {role}</h2>
-      
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="email" 
-          placeholder="Email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          required 
-        />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          required 
-        />
-        
-        <button type="submit" disabled={loading}>
-          {loading ? 'Loading...' : (formType === 'login' ? 'Login' : 'Sign Up')}
-        </button>
-      </form>
+      {/* Right section for the form */}
+      <div className="login-signup-container">
+        <div className="role-toggle">
+          <button onClick={() => handleRoleChange('Freelancer')} className={role === 'Freelancer' ? 'active' : ''}>Freelancer</button>
+          <button onClick={() => handleRoleChange('Recruiter')} className={role === 'Recruiter' ? 'active' : ''}>Recruiter</button>
+        </div>
 
-      {error && <p className="error-message">{error}</p>}
+        <h2>{formType === 'login' ? 'Login' : 'Sign Up'} as {role}</h2>
 
-      <div className="form-toggle">
-        {formType === 'login' ? (
-          <p>Don't have an account? <span onClick={() => handleFormTypeChange('signup')}>Sign Up</span></p>
-        ) : (
-          <p>Already have an account? <span onClick={() => handleFormTypeChange('login')}>Login</span></p>
-        )}
+        <form onSubmit={handleSubmit}>
+          <input 
+            type="email" 
+            placeholder="Email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
+          <input 
+            type="password" 
+            placeholder="Password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+          />
+          
+          <button type="submit" disabled={loading}>
+            {loading ? 'Loading...' : (formType === 'login' ? 'Login' : 'Sign Up')}
+          </button>
+        </form>
+
+        {error && <p className="error-message">{error}</p>}
+
+        <div className="form-toggle">
+          {formType === 'login' ? (
+            <p>Don't have an account? <span onClick={() => handleFormTypeChange('signup')}>Sign Up</span></p>
+          ) : (
+            <p>Already have an account? <span onClick={() => handleFormTypeChange('login')}>Login</span></p>
+          )}
+        </div>
       </div>
     </div>
   );
