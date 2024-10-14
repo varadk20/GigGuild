@@ -51,7 +51,8 @@
 .token-input-container {
   display: flex;
   align-items: center;
-  margin-top: 20px; /* Space above the token input */
+  margin-top: 20px;
+  gap: 20px; /* Add a gap between input and button */
 }
 
 .token-input {
@@ -68,7 +69,6 @@
 }
 
 .fetch-button {
-  margin-left: 10px; /* Space between input and button */
   background-color: #1e293b; /* Dark button background */
   color: white; /* White text color */
   padding: 10px 15px; /* Padding inside the button */
