@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Menu, MenuItem, Avatar, IconButton, Tabs, Tab, Box } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './ProfileMenu.css'; // Import the CSS for ProfileMenu
 
@@ -21,7 +20,17 @@ function ProfileMenu() {
     setTabValue(newValue);
     if (newValue === 0) {
       navigate('/edit-profile'); // Navigate to EditProfile page
+    } else if (newValue === 1) {
+      navigate('/projects'); // Navigate to Projects page
+    } else if (newValue === 2) {
+      navigate('/wallet'); // Navigate to Wallet page
+    } else if (newValue === 3) {
+      // Logic for Logout
+      // Optionally, clear any authentication tokens or session data here
+      // For example: localStorage.removeItem('authToken');
+      navigate('/loginsignup'); // Navigate to the Login page after logging out
     }
+    handleMenuClose(); // Close the menu after a tab is clicked
   };
 
   const isMenuOpen = Boolean(anchorEl);
@@ -61,6 +70,7 @@ function ProfileMenu() {
             <Tab label="Edit Profile" />
             <Tab label="Projects" />
             <Tab label="Wallet" />
+            <Tab label="Logout" />
           </Tabs>
         </Box>
       </Menu>

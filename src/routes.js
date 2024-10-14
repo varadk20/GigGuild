@@ -13,7 +13,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/role-selection" element={<RoleSelection/>} />
-        <Route path="//loginsignup" element={<LoginSignupPage/>} />
+        <Route path="/loginsignup" element={<LoginSignupPage/>} />
         <Route path="/freelancer-home" element={<FreelancerPage/>} />
         <Route path="/recruiter-home" element={<RecruiterPage/>} />
         {/* <Route path="/edit-profile" element={<EditProfilePage />} /> */}
