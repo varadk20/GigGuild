@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, InputBase, Button, Card, CardContent } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, InputBase, Button, Card, CardContent, Chip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import ProfileMenu from '../components/ProfileMenu';
@@ -12,6 +12,8 @@ function FreelancerPage() {
   const [repos, setRepos] = useState([]);
   const [accessToken, setAccessToken] = useState('');
   const [error, setError] = useState(null);
+  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState('');
 
   const handleSidebarOpen = () => {
     setSidebarOpen(true);
@@ -40,6 +42,17 @@ function FreelancerPage() {
     fetchGitHubRepos(accessToken);
   };
 
+  const addTag = (e) => {
+    if (e.key === 'Enter' && tagInput.trim() !== '' && !tags.includes(tagInput.trim())) {
+      setTags([...tags, tagInput.trim()]);
+      setTagInput('');
+    }
+  };
+
+  const handleTagDelete = (tagToDelete) => {
+    setTags(tags.filter((tag) => tag !== tagToDelete));
+  };
+
   return (
     <div className="freelancerpage">
       <AppBar position="static" className="navbar">
@@ -65,28 +78,50 @@ function FreelancerPage() {
           <ProfileMenu />
         </Toolbar>
       </AppBar>
-      <Sidebar open={sidebarOpen} onClose={handleSidebarClose} /> 
+      <Sidebar open={sidebarOpen} onClose={handleSidebarClose} />
       <div className="content-container">
         <Typography variant="h4">Welcome to TheGigGuild!</Typography>
         
+        {/* Tags Input */}
+        <div className="tags-input-container">
+          <InputBase
+            placeholder="Add technologies (e.g., HTML,CSS)"
+            value={tagInput}
+            onChange={(e) => setTagInput(e.target.value)}
+            onKeyDown={addTag}
+            className="tag-input"
+          />
+          <div className="tags-display">
+            {tags.map((tag, index) => (
+              <Chip
+                key={index}
+                label={tag}
+                onDelete={() => handleTagDelete(tag)}
+                color="primary"
+                className="tag-chip"
+              />
+            ))}
+          </div>
+        </div>
+
         {/* GitHub Personal Access Token Input */}
         <div className="token-input-container">
           <InputBase
             placeholder="Enter GitHub Personal Access Token"
             value={accessToken}
             onChange={(e) => setAccessToken(e.target.value)}
-            className="token-input" // Apply the token input class
+            className="token-input"
           />
           <Button 
             variant="contained" 
-            className="fetch-button" // Apply the button class
+            className="fetch-button"
             onClick={handleTokenSubmit}
           >
             Fetch Projects
           </Button>
         </div>
         {error && <Typography color="error">{error}</Typography>}
-        
+
         {/* Display fetched repositories */}
         <div className="projects-container">
           {repos.map((repo) => (
@@ -105,7 +140,6 @@ function FreelancerPage() {
             </Card>
           ))}
         </div>
-
       </div>
     </div>
   );
