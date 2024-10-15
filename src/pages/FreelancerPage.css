@@ -70,11 +70,11 @@
 
 .fetch-button {
   background-color: #1e293b; /* Dark button background */
-  color: white; /* White text color */
-  padding: 10px 15px; /* Padding inside the button */
+  color: white; 
+  padding: 10px 15px; 
   border: none; /* No border */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 4px;
+  cursor: pointer; 
   transition: background-color 0.3s; /* Smooth background color transition */
 }
 
@@ -89,9 +89,35 @@
 /* Styles for content container */
 .content-container {
   flex: 1; /* Allow this container to grow and fill available space */
-  padding: 20px; /* Padding around the content */
+  padding: 20px; 
   display: flex;
-  flex-direction: column; /* Column layout */
+  flex-direction: column;
+}
+
+/* Styles for tags input */
+.tags-input-container {
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tag-input {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.tags-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tag-chip {
+  background-color: #1e293b;
+  color: white;
 }
 
 /* Styles for projects container */
