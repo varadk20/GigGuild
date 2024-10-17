@@ -1,4 +1,3 @@
-/* FreelancerPage.css */
 .freelancerpage {
   background-color: #f4f4f5; /* Zinc color */
   height: 100vh;
@@ -25,81 +24,29 @@
 }
 
 .search:hover {
-  background-color: rgba(255, 255, 255, 0.25); /* Highlight on hover */
-}
-
-.searchIcon {
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.inputBase {
-  color: inherit;
-  padding: 8px 8px 8px 0;
-  padding-left: 40px; /* Offset for search icon */
-  transition: width 300ms;
-  width: 150px;
-}
-
-.inputBase:hover {
   background-color: rgba(255, 255, 255, 0.25);
 }
 
-/* Styles for GitHub Personal Access Token input */
-.token-input-container {
+.inputBase {
+  color: white;
+  padding: 5px;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 5px;
+}
+
+.content-container {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.tags-input-container {
   display: flex;
   align-items: center;
   margin-top: 20px;
-  gap: 20px; /* Add a gap between input and button */
-}
-
-.token-input {
-  width: 300px; /* Fixed width for the input */
-  padding: 10px; /* Padding inside the input */
-  border: 1px solid #ccc; /* Light gray border */
-  border-radius: 4px; /* Rounded corners */
-  transition: border-color 0.3s; /* Smooth border color transition */
-}
-
-.token-input:focus {
-  border-color: #1e293b; /* Darker border color on focus */
-  outline: none; /* Remove default outline */
-}
-
-.fetch-button {
-  background-color: #1e293b; /* Dark button background */
-  color: white; 
-  padding: 10px 15px; 
-  border: none; /* No border */
-  border-radius: 4px;
-  cursor: pointer; 
-  transition: background-color 0.3s; /* Smooth background color transition */
-}
-
-.fetch-button:hover {
-  background-color: #2a2f3a; /* Darker shade on hover */
-}
-
-.fetch-button:focus {
-  outline: none; /* Remove default outline on focus */
-}
-
-/* Styles for content container */
-.content-container {
-  flex: 1; /* Allow this container to grow and fill available space */
-  padding: 20px; 
-  display: flex;
-  flex-direction: column;
-}
-
-/* Styles for tags input */
-.tags-input-container {
-  display: flex;
-  margin-top: 20px;
-  flex-direction: column;
-  gap: 10px;
+  gap: 10px; /* Reduced gap between input and buttons */
 }
 
 .tag-input {
@@ -111,27 +58,55 @@
 
 .tags-display {
   display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.repo-card {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.token-input-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px; /* Reduced gap between input and buttons */
+}
+
+.token-input {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.token-input:focus {
+  border-color: #1e293b;
+  outline: none;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px; /* Space between the buttons */
+}
+
+.saved-repos-display {
+  margin-top: 20px;
+}
+
+.tags-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .tag-chip {
   background-color: #1e293b;
   color: white;
-}
-
-/* Styles for projects container */
-.projects-container {
-  display: flex; /* Use flexbox for layout */
-  flex-direction: row; /* Horizontal layout */
-  flex-wrap: wrap; /* Allow wrapping to the next row */
-  margin-top: 20px; /* Space above the projects */
-  padding: 0; /* Remove padding */
-}
-
-/* Styles for project cards */
-.project-card {
-  flex: 1 1 200px; /* Flex-grow, flex-shrink, and minimum width */
-  margin: 10px; /* Space between cards */
-  box-sizing: border-box; /* Include padding and border in the element's total width */
+  cursor: pointer;
 }

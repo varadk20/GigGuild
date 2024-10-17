@@ -165,9 +165,18 @@ function FreelancerPage() {
             onChange={(e) => setAccessToken(e.target.value)}
             className="token-input"
           />
-          <Button onClick={handleTokenSubmit} variant="contained" color="primary">
-            Fetch Repos
-          </Button>
+          <div className="button-group">
+            <Button onClick={handleTokenSubmit} variant="contained" color="primary">
+              Fetch Repos
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={saveTagsAndRepos}
+            >
+              Save Tags & Repos
+            </Button>
+          </div>
         </div>
 
         {/* Repositories Display (Fetched Repos) */}
@@ -219,14 +228,6 @@ function FreelancerPage() {
             </div>
           )}
         </div>
-
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={saveTagsAndRepos}
-        >
-          Save Tags & Repos
-        </Button>
 
         {/* Success and Error Messages */}
         {successMessage && (
