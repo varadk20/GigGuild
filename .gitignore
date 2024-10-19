@@ -24,6 +24,7 @@ chrome-user-data
 *.swp
 *.swo
 .env
+tagrepos.json
 
 
 packages/react-devtools-core/dist

@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const fs = require('fs'); // Import the fs module
 require('dotenv').config();
 
 const app = express();
@@ -15,7 +16,10 @@ const mongoUri = process.env.MONGO_URI;
 
 // Connect to MongoDB Atlas
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB Atlas'))
+  .then(async () => {
+    console.log('Connected to MongoDB Atlas');
+    await saveTagReposToJson(); // Call the function to save data to JSON
+  })
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Define a User schema
@@ -41,6 +45,17 @@ const tagRepoSchema = new mongoose.Schema({
 });
 
 const TagRepo = mongoose.model('TagRepo', tagRepoSchema);
+
+// Function to save the TagRepo collection to a JSON file
+const saveTagReposToJson = async () => {
+  try {
+    const tagRepos = await TagRepo.find({});
+    fs.writeFileSync('tagrepos.json', JSON.stringify(tagRepos, null, 2), 'utf8');
+    console.log('TagRepos data saved to tagrepos.json');
+  } catch (error) {
+    console.error('Error saving TagRepos data to JSON:', error);
+  }
+};
 
 // Signup route
 app.post('/api/signup', async (req, res) => {
@@ -90,6 +105,7 @@ app.post('/api/save-tags-repos', async (req, res) => {
 
     // Save the record to the database
     await tagRepo.save();
+    await saveTagReposToJson(); // Save to JSON file after saving to DB
     res.status(200).json({ message: 'Tags and repositories saved successfully' });
   } catch (error) {
     console.error('Error saving tags and repositories:', error);
@@ -116,6 +132,18 @@ app.get('/api/get-tags-repos', async (req, res) => {
     console.error('Error fetching tags and repositories:', error);
     res.status(500).send('Error fetching tags and repositories');
   }
+});
+
+// Serve the JSON file
+app.get('/api/tagrepos', (req, res) => {
+  fs.readFile('tagrepos.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading JSON file:', err);
+      return res.status(500).send('Error reading JSON file');
+    }
+    res.setHeader('Content-Type', 'application/json');
+    res.send(data);
+  });
 });
 
 // Start the server
