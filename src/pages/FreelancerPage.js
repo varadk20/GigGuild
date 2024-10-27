@@ -5,18 +5,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ProfileMenu from '../components/ProfileMenu';
 import Sidebar from '../components/Sidebar';
 import axios from 'axios';
-import './FreelancerPage.css'; // Import the CSS file
+import recruiterData from '../data/recruiters.json'; // Import the JSON file
+import './FreelancerPage.css';
 
 function FreelancerPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [repos, setRepos] = useState([]); // Fetched from GitHub
-  const [savedRepos, setSavedRepos] = useState([]); // Repos saved in the database
+  const [repos, setRepos] = useState([]);
+  const [savedRepos, setSavedRepos] = useState([]);
   const [accessToken, setAccessToken] = useState('');
   const [error, setError] = useState(null);
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [recruiters, setRecruiters] = useState([]); // State for recruiter data
 
   const handleSidebarOpen = () => {
     setSidebarOpen(true);
@@ -33,11 +35,11 @@ function FreelancerPage() {
           Authorization: `token ${token}`,
         },
       });
-      setRepos(response.data); // Fetched repos
-      setError(null); // Clear any previous errors
+      setRepos(response.data);
+      setError(null);
     } catch (error) {
       setError('Error fetching repositories');
-      setRepos([]); // Clear previous repos on error
+      setRepos([]);
     }
   };
 
@@ -57,11 +59,9 @@ function FreelancerPage() {
   };
 
   const saveTagsAndRepos = async () => {
-    const email = localStorage.getItem('userEmail'); // Retrieve the email from localStorage
-    
-    // Map repositories to include name, description, and URL
+    const email = localStorage.getItem('userEmail');
     const repositoriesData = repos.map((repo) => ({
-      name: repo.name, 
+      name: repo.name,
       description: repo.description || 'No description available',
       url: repo.html_url,
     }));
@@ -82,13 +82,13 @@ function FreelancerPage() {
   };
 
   const fetchSavedTagsAndRepos = async () => {
-    const email = localStorage.getItem('userEmail'); // Retrieve the email from localStorage
+    const email = localStorage.getItem('userEmail');
     if (email) {
       try {
         const response = await axios.get(`http://localhost:5000/api/get-tags-repos?email=${email}`);
         if (response.data) {
           setTags(response.data.tags || []);
-          setSavedRepos(response.data.repositories || []); // Save data to separate state
+          setSavedRepos(response.data.repositories || []);
         }
       } catch (error) {
         setErrorMessage('Error fetching saved tags and repositories');
@@ -97,12 +97,12 @@ function FreelancerPage() {
   };
 
   useEffect(() => {
-    const email = localStorage.getItem('userEmail'); // Check if email exists in localStorage
+    const email = localStorage.getItem('userEmail');
     if (!email) {
-      // Redirect to login page if email not found
       window.location.href = '/login';
     } else {
-      fetchSavedTagsAndRepos(); // Fetch the saved tags and repos if email exists
+      fetchSavedTagsAndRepos();
+      setRecruiters(recruiterData); // Load recruiter data from JSON
     }
   }, []);
 
@@ -189,10 +189,10 @@ function FreelancerPage() {
                   <CardContent>
                     <Typography variant="h6">{repo.name}</Typography>
                     <Typography variant="body2">{repo.description || 'No description available'}</Typography>
-                    <a 
-                      href={repo.html_url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href={repo.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{ color: 'blue', textDecoration: 'underline' }}
                     >
                       {repo.html_url}
@@ -213,15 +213,8 @@ function FreelancerPage() {
                 <Card key={index} className="repo-card">
                   <CardContent>
                     <Typography variant="h6">{repo.name}</Typography>
-                    <Typography variant="body2">{repo.description || 'No description available'}</Typography>
-                    <a 
-                      href={repo.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      style={{ color: 'blue', textDecoration: 'underline' }}
-                    >
-                      {repo.url}
-                    </a>
+                    <Typography variant="body2">{repo.description}</Typography>
+                    <a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.url}</a>
                   </CardContent>
                 </Card>
               ))}
@@ -229,26 +222,46 @@ function FreelancerPage() {
           )}
         </div>
 
-        {/* Success and Error Messages */}
-        {successMessage && (
-          <Snackbar
-            open={!!successMessage}
-            autoHideDuration={6000}
-            onClose={() => setSuccessMessage('')}
-          >
-            <Alert severity="success">{successMessage}</Alert>
-          </Snackbar>
-        )}
 
-        {errorMessage && (
-          <Snackbar
-            open={!!errorMessage}
-            autoHideDuration={6000}
-            onClose={() => setErrorMessage('')}
-          >
-            <Alert severity="error">{errorMessage}</Alert>
-          </Snackbar>
-        )}
+        {/* Recruiters Display */}
+        <div className="recruiters-display" style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+          {recruiters.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+              <Typography variant="h6" style={{ width: '100%' }}>Available Positions</Typography>
+              {recruiters.map((recruiter, index) => (
+                <Card key={index} className="repo-card" style={{ flex: '1 1 300px', maxWidth: '300px' }}>
+                  <CardContent>
+                    <Typography variant="h6">{recruiter.email}</Typography>
+                    <Typography variant="body2">{recruiter.company}</Typography>
+                    <Typography variant="body2">{recruiter.description}</Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => window.open(`mailto:${recruiter.email}`, '_blank')}
+                    >
+                      Apply
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </div>
+
+
+
+        {/* Snackbar for success and error messages */}
+        <Snackbar open={!!successMessage} autoHideDuration={6000} onClose={() => setSuccessMessage('')}>
+          <Alert onClose={() => setSuccessMessage('')} severity="success">
+            {successMessage}
+          </Alert>
+        </Snackbar>
+
+        <Snackbar open={!!errorMessage} autoHideDuration={6000} onClose={() => setErrorMessage('')}>
+          <Alert onClose={() => setErrorMessage('')} severity="error">
+            {errorMessage}
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   );
