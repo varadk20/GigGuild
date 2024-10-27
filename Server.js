@@ -26,7 +26,7 @@ const createDirectoryIfNotExists = (dirPath) => {
 };
 
 // Create the 'data' directory
-const dataDir = path.join(__dirname, 'data');
+const dataDir = path.join(__dirname, './src/data');
 createDirectoryIfNotExists(dataDir);
 
 // Connect to MongoDB Atlas
