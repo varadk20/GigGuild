@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs'); // Import the fs module
+const path = require('path'); // Import the path module
 require('dotenv').config();
 
 const app = express();
@@ -14,11 +15,26 @@ app.use(bodyParser.json());
 // MongoDB connection URI
 const mongoUri = process.env.MONGO_URI;
 
+// Function to create a directory if it doesn't exist
+const createDirectoryIfNotExists = (dirPath) => {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true }); // Use recursive to create parent directories if needed
+    console.log(`Directory created: ${dirPath}`);
+  } else {
+    console.log(`Directory already exists: ${dirPath}`);
+  }
+};
+
+// Create the 'data' directory
+const dataDir = path.join(__dirname, 'data');
+createDirectoryIfNotExists(dataDir);
+
 // Connect to MongoDB Atlas
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB Atlas');
     await saveTagReposToJson(); // Call the function to save data to JSON
+    await saveRecruiterToJson(); // Call the function to save recruiter data to JSON
   })
   .catch(err => console.error('MongoDB connection error:', err));
 
@@ -50,10 +66,21 @@ const TagRepo = mongoose.model('TagRepo', tagRepoSchema);
 const saveTagReposToJson = async () => {
   try {
     const tagRepos = await TagRepo.find({});
-    fs.writeFileSync('tagrepos.json', JSON.stringify(tagRepos, null, 2), 'utf8');
-    console.log('TagRepos data saved to tagrepos.json');
+    fs.writeFileSync(path.join(dataDir, 'tagrepos.json'), JSON.stringify(tagRepos, null, 2), 'utf8'); // Updated path
+    console.log('TagRepos data saved to data/tagrepos.json');
   } catch (error) {
     console.error('Error saving TagRepos data to JSON:', error);
+  }
+};
+
+// Function to save the Recruiter collection to a JSON file
+const saveRecruiterToJson = async () => {
+  try {
+    const recruiters = await Recruiter.find({});
+    fs.writeFileSync(path.join(dataDir, 'recruiters.json'), JSON.stringify(recruiters, null, 2), 'utf8'); // Updated path
+    console.log('Recruiters data saved to data/recruiters.json');
+  } catch (error) {
+    console.error('Error saving Recruiters data to JSON:', error);
   }
 };
 
@@ -136,7 +163,7 @@ app.get('/api/get-tags-repos', async (req, res) => {
 
 // Serve the JSON file
 app.get('/api/tagrepos', (req, res) => {
-  fs.readFile('tagrepos.json', 'utf8', (err, data) => {
+  fs.readFile(path.join(dataDir, 'tagrepos.json'), 'utf8', (err, data) => { // Updated path
     if (err) {
       console.error('Error reading JSON file:', err);
       return res.status(500).send('Error reading JSON file');
@@ -144,6 +171,41 @@ app.get('/api/tagrepos', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(data);
   });
+});
+
+// Define a new schema for the Recruiter collection
+const recruiterSchema = new mongoose.Schema({
+  email: { type: String, required: true },
+  description: { type: String, required: true },
+});
+
+const Recruiter = mongoose.model('Recruiter', recruiterSchema);
+
+// Route to save the email and description in the recruiter collection
+app.post('/api/save-recruiter', async (req, res) => {
+  const { email, description } = req.body;
+  try {
+    // Check if a record already exists for the user
+    let recruiter = await Recruiter.findOne({ email });
+    if (recruiter) {
+      // If the record exists, update the description
+      recruiter.description = description; // Update description
+    } else {
+      // If no record exists, create a new one
+      recruiter = new Recruiter({ email, description });
+    }
+
+    // Save the record to the database
+    await recruiter.save();
+    console.log('Recruiter data saved:', recruiter);
+    
+    await saveRecruiterToJson(); // Save recruiter data to JSON after saving to DB
+
+    res.status(200).json({ message: 'Recruiter data saved successfully' });
+  } catch (error) {
+    console.error('Error saving recruiter data:', error);
+    res.status(500).send('Error saving recruiter data');
+  }
 });
 
 // Start the server
