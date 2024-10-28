@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs'); // Import the fs module
 const path = require('path'); // Import the path module
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const app = express();
@@ -87,8 +88,17 @@ const saveRecruiterToJson = async () => {
 // Signup route
 app.post('/api/signup', async (req, res) => {
   const { email, password, role } = req.body;
+  
+  // Check if the password is at least 8 characters long
+  if (password.length < 8) {
+    return res.status(400).json({ error: 'Password must be at least 8 characters long' });
+  }
+
   try {
-    const newUser = new User({ email, password, role });
+    // Hash the password with a salt factor of 10
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
+    const newUser = new User({ email, password: hashedPassword, role });
     await newUser.save();
     console.log('User created:', newUser);
 
@@ -99,12 +109,15 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
+
+
 // Login route
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
+  
   try {
     const user = await User.findOne({ email });
-    if (user && user.password === password) {
+    if (user && await bcrypt.compare(password, user.password)) {
       res.status(200).json({ message: 'Login successful', role: user.role, email: user.email });
     } else {
       res.status(401).send('Invalid credentials');
@@ -114,6 +127,8 @@ app.post('/api/login', async (req, res) => {
     res.status(500).send('Error logging in');
   }
 });
+
+
 
 // Route to save tags and repositories to MongoDB
 app.post('/api/save-tags-repos', async (req, res) => {
