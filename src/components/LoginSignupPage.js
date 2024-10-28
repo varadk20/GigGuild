@@ -27,45 +27,29 @@ function LoginSignupPage() {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setSuccessMessage(''); // Clear success message on form submission
-
+    setSuccessMessage('');
+  
     const payload = { email, password, role };
-
+  
     try {
       const endpoint = formType === 'login' ? '/api/login' : '/api/signup';
       const response = await axios.post(`http://localhost:5000${endpoint}`, payload);
-
-      console.log(response.data); // Log response data
-
+  
       if (formType === 'signup') {
         setSuccessMessage('Signup successful! You can now log in.');
-        setTimeout(() => {
-          handleFormTypeChange('login'); // Switch to login form after 3 seconds
-        }, 3000); // 3 seconds delay before switching to login
+        setTimeout(() => handleFormTypeChange('login'), 3000);
       } else {
-        // Login is successful, so navigate to the dashboard based on role
         localStorage.setItem('userEmail', email);
-
-        const userRole = response.data.role; // Assume the role is returned in response
-        if (userRole === 'Freelancer') {
-          navigate('/freelancer-home');
-        } else if (userRole === 'Recruiter') {
-          navigate('/recruiter-home');
-        } else {
-          setError('Role not recognized');
-        }
+        navigate(response.data.role === 'Freelancer' ? '/freelancer-home' : '/recruiter-home');
       }
     } catch (error) {
-      if (formType === 'login') {
-        setError('Invalid credentials. Please sign up if you don’t have an account.');
-      } else {
-        setError('Error: ' + (error.response?.data || 'An unexpected error occurred'));
-      }
-      console.error('Error:', error); // Log the error
+      const errorMessage = error.response?.data?.error || 'Invalid credentials. Please check password or email';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="login-signup-page">
