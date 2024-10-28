@@ -19,6 +19,7 @@
   
   .footer-logo {
     flex: 1;
+    display: flex;
   }
   
   .footer-center {

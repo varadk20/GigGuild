@@ -1,45 +1,29 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import './Cards.css'; // Import the CSS file
 
 const cardsData = [
   {
     id: 1,
     title: 'Card 1',
-    description: 'Description for card 1',
-    media: '/assets/videos/Coding.mp4', // Replace with actual image or video path
-    mediaType:'video',
+    description: 'Saves related tags and GitHub collaboration for recruiter profile',
+    media: '/Card1.jpeg', // Replace with actual image path
+    mediaType: 'image',
   },
   {
     id: 2,
     title: 'Card 2',
-    description: 'Description for card 2',
-    media: '/assets/images/lion.png',
-    mediaType:'image',
+    description: 'filtered search to find relevant freelancers',
+    media: '/Card2.jpeg', // Replace with actual image path
+    mediaType: 'image',
   },
   {
     id: 3,
     title: 'Card 3',
-    description: 'Description for card 3',
-    media: '/path/to/image3.jpg',
+    description: 'Freelancer can apply and mail the recruiter',
+    media: '/Card3.jpeg',
+    mediaType: 'image',
   },
-  {
-    id: 4,
-    title: 'Yo Its me',
-    description: 'Hi Chapron what are you doing lorem ipsum sdblwefblwiviwe ildhq;fbqkchqf ilhdbqfklavqk wdlq doagdackhavciaevfkaca kjcvbakeca. cab.cac kjada uawgda.ckuae.kcuaceckaughchāē skxga.cuag.dauc akuga.caus/.alg',
-    media: '/path/to/image4.jpg',
-  },
-  {
-    id: 5,
-    title: 'Card 5',
-    description: 'Description for card 5',
-    media: '/path/to/image5.jpg',
-  },
-  {
-    id: 6,
-    title: 'Card 6',
-    description: 'Description for card 6',
-    media: '/path/to/image6.jpg',
-  }
 ];
 
 function Cards() {
@@ -47,37 +31,24 @@ function Cards() {
     <div className="cards-container">
       {cardsData.map(card => (
         <Card key={card.id} className="card">
-          {card.mediaType === 'image' ? (
-            <CardMedia
-              component="img"
-              alt={card.title}
-              image={card.media}
-              className="card-media"
-            />
-          ) : (
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              alt={card.title}
-              className="card-media"
-              src={card.media}
-            />
-          )}
-          <CardContent className="card-content">
-            <Typography variant="h5" component="div">
+          <CardMedia
+            component="img"
+            alt={card.title}
+            image={card.media}
+            className="card-media"
+          />
+          <div className="card-overlay">
+            <Typography variant="h5" component="div" className="overlay-title">
               {card.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" className="overlay-description">
               {card.description}
             </Typography>
-          </CardContent>
+          </div>
         </Card>
       ))}
     </div>
   );
 }
 
-  
-  export default Cards;
+export default Cards;

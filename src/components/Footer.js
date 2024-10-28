@@ -8,7 +8,8 @@ function Footer() {
       <div className="footer-content">
         <div className="footer-logo">
           {/* Add your logo here */}
-          <img src="/path/to/logo.png" alt="Logo" style={{ maxWidth: '150px' }} />
+          <img src="/Logo.jpeg" alt="Logo" style={{ maxWidth: '150px' }} />
+
         </div>
         <div className="footer-center">
           <p>Reach Out to Us At:</p>
